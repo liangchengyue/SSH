@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="userDAOImpl" class="com.lcy.ssh.dao.impl.UserDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="userServiceBase" class="com.lcy.ssh.service.impl.UserServiceImpl">
+		<property name="userDao" ref="userDAOImpl" />
+	</bean>
+	<bean name="userService" parent="transactionProxy">
+		<property name="target" ref="userServiceBase" />
+	</bean>
+
+	<bean id="typeDAOImpl" class="com.lcy.ssh.dao.impl.TypeDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="typeServiceBase" class="com.lcy.ssh.service.impl.TypeServiceImpl">
+		<property name="typeDao" ref="typeDAOImpl" />
+	</bean>
+	<bean name="typeService" parent="transactionProxy">
+		<property name="target" ref="typeServiceBase" />
+	</bean>
+</beans>  
